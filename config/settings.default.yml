@@ -78,12 +78,12 @@
 # - Connection settings for the IMAP account, server and folders.
 #------------------------------------------------------------------------------
 :email_dropbox:
-  :server                     : "smtp.gmail.com"        # IMAP server name.
-  :port                       : "587"        # IMAP server port number.
-  :ssl                        : "true"        # True for secure IMAP connection, false othewise.
+  :server                     : ""        # IMAP server name.
+  :port                       : ""        # IMAP server port number.
+  :ssl                        : ""        # True for secure IMAP connection, false othewise.
   :address                    : ""        # Dropbox email address.
-  :user                       : "wooten.666@gmail.com"        # User to login to the IMAP server.
-  :password                   : "Fester1."        # Password to login to the IMAP server.
+  :user                       : ""        # User to login to the IMAP server.
+  :password                   : ""        # Password to login to the IMAP server.
   :scan_folder                : ""        # Folder to scan for dropbox messages.
   :attach_to_account          : ""        # Attach emails to contact's account, if any.
                                           # (The rule above also applies to opportunities.)
@@ -97,12 +97,12 @@
 # Settings for 'Reply via email' inbox (IMAP)
 #------------------------------------------------------------------------------
 :email_comment_replies:
-  :server                     : "smtp.gmail.com"        # IMAP server name.
-  :port                       : "587"        # IMAP server port number.
-  :ssl                        : "true"        # True for secure IMAP connection, false othewise.
+  :server                     : ""        # IMAP server name.
+  :port                       : ""        # IMAP server port number.
+  :ssl                        : ""        # True for secure IMAP connection, false othewise.
   :address                    : ""        # Comment reply email address.
-  :user                       : "wooten.666@gmail.com"        # User to login to the IMAP server.
-  :password                   : "Fester1."        # Password to login to the IMAP server.
+  :user                       : ""        # User to login to the IMAP server.
+  :password                   : ""        # Password to login to the IMAP server.
   :scan_folder                : ""        # Folder to scan for comment replies.
 #  :move_to_folder            : ""        # Optional: folder to move processed messages to.
 #  :move_invalid_to_folder    : ""        # Optional: folder to move invalid messages to.
@@ -134,7 +134,7 @@
 #   :not_allowed    -- users can only be added by system administrator. This is the default.
 #   :needs_approval -- users can sign up but must be approved before they can use the system.
 #
-:user_signup: :allowed
+:user_signup: :not_allowed
 
 
 # Address format
