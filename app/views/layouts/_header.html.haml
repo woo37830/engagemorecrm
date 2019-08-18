@@ -15,6 +15,6 @@
     - else
       = link_to(t(:login), new_user_session_path) << " |"
       = link_to(t(:sign_up), new_user_registration_path) << " |" if User.can_signup?
-      = link_to(t(:about), "#", title: t(:about_ffc), onclick: "$('#about').dialog({ title: this.title, modal: true }); return false;")
+      = link_to(t(:about), "#", title: t(:about_ffc), onclick: "$('#about').dialog({ title: this.title, modal: true }); return true;")
   %h3
     = link_to("EngageMoreCRM", root_path)
