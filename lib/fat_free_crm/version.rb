@@ -8,10 +8,13 @@
 module FatFreeCRM
   module VERSION #:nodoc:
     MAJOR = 0
-    MINOR = 19
+    MINOR = 20
     TINY  = 0
     PRE   = nil
+    commit = `git rev-parse --short HEAD`
+    thebranch = `git rev-parse --abbrev-ref HEAD`
 
-    STRING = [MAJOR, MINOR, TINY, PRE].compact.join('.')
+    STRING= [MAJOR, MINOR, TINY, PRE].compact.join('.')
+    GIT = [', Commit:', commit, '- Branch:', thebranch].compact.join(' ')
   end
 end

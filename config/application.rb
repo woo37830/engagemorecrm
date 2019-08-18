@@ -70,8 +70,17 @@ module FatFreeCRM
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += %i[password encrypted_password password_salt password_confirmation]
-  end
+
+    # Version of assets, change to expire all msg_assets_not_available
+       config.before_configuration do
+         env_file = File.join(Rails.root, 'config', 'local_env.yml')
+         YAML.load(File.open(env_file)).each do |key, value|
+           ENV[key.to_s] = value
+         end if File.exists?(env_file)
+       end
+    end
 end
+
 
 # Require fat_free_crm after FatFreeCRM::Application class is defined,
 # so that FatFreeCRM::Engine is skipped.

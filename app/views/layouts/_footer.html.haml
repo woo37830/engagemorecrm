@@ -1,9 +1,10 @@
 #footer
   Powered by #{link_to "EngageMoreCRM", "http://www.fatfreecrm.com", :"data-popup" => true }
-  v#{FatFreeCRM::VERSION::STRING} &copy; 2008-#{Date.today.year} based on FatFreeCRM and extended by Wooten, Jette, and Sampson.
+
+  v#{FatFreeCRM::VERSION::STRING} &copy; 2008-#{Date.today.year} #{FatFreeCRM::VERSION::GIT}
 
   - unless tabless_layout?
     \|
-    = link_to(t(:about_ffc), "#", title: t(:about_ffc), onclick: "$('#about').dialog({ title: this.title, modal: true }); return false;")
+    = link_to(t(:about_ffc), "#", title: t(:about_ffc), onclick: "$('#about').dialog({ title: this.title, modal: true }); return true;")
 %br
 = render "layouts/about"

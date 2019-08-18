@@ -5,7 +5,7 @@
       -# This span gets updated on the fly if user changes her name.
       %span#welcome_username= current_user.name
       %span> !&nbsp;&nbsp;
-
+      = link_to( 'Bugs', ENV["ISSUES_SERVER"],  :target => "_blank" )
       = link_to(t(:quick_find), "#", id: "jumper") << " |"
       = link_to(t(:profile), profile_path) << " |"
       - if current_user.admin?
