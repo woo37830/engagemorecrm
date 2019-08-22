@@ -169,8 +169,6 @@ ActiveRecord::Schema.define(version: 20180107082701) do
     t.string "background_info"
     t.string "skype", limit: 128
     t.text "subscribed_users"
-    t.boolean "cf_opt_in"
-    t.string "cf_sms_phone"
     t.index ["assigned_to"], name: "index_contacts_on_assigned_to"
     t.index ["user_id", "last_name", "deleted_at"], name: "id_last_name_deleted", unique: true
   end
