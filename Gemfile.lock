@@ -371,6 +371,7 @@ GEM
     sshkit (1.16.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    table_print (1.5.6)
     temple (0.8.0)
     terrapin (0.6.0)
       climate_control (>= 0.0.3, < 1.0)
@@ -470,6 +471,7 @@ DEPENDENCIES
   simple_form
   sprockets-rails (>= 3.0.0)
   sqlite3
+  table_print
   therubyracer
   thor
   timecop

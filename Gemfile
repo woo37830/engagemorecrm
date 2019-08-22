@@ -86,6 +86,7 @@ group :heroku do
   gem 'puma'
 end
 
+gem 'table_print'
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'

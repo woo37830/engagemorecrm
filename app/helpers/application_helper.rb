@@ -169,6 +169,17 @@ module ApplicationHelper
   end
 
   #----------------------------------------------------------------------------
+  def link_to_phone(phone, length = nil, &_block)
+    #phone
+    if block_given?
+      link_to("mailto:ralph@gomer.com", title: "Block given") do
+        yield
+      end
+    else
+      link_to(h(phone), "mailto:ralph@gomer.com?subject=Test", title: phone)
+    end
+  end
+  #----------------------------------------------------------------------------
   def jumpbox(current)
     tabs = %i[campaigns accounts leads contacts opportunities]
     current = tabs.first unless tabs.include?(current)
