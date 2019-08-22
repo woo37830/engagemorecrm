@@ -176,7 +176,7 @@ module ApplicationHelper
         yield
       end
     else
-      link_to(h(phone), "mailto:ralph@gomer.com?subject=Test", title: phone)
+      link_to(h(phone), "https://jwooten37830.com/text.php?phone=#{phone}", title: phone)
     end
   end
   #----------------------------------------------------------------------------

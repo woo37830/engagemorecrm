@@ -6,10 +6,10 @@
   %div= render "shared/address_show", asset: @contact, type: 'business', title: :address
 
   %div
-    - unless @contact.phone.blank?
+    - unless @contact.phone.blank? | @contact.do_not_call?
       == #{t :phone}: <b>#{link_to_phone(@contact.phone)}</b><br />
-    - unless @contact.mobile.blank?
-      == #{t :mobile}: <b>#{@contact.do_not_call ? content_tag(:strike, h(@contact.mobile)) : h(@contact.mobile)}</b><br />
+    - unless @contact.mobile.blank? | @contact.do_not_call?
+      == #{t :phone}: <b>#{link_to_phone(@contact.mobile)}</b><br />
     - unless @contact.fax.blank?
       == #{t :fax}: <b>#{@contact.do_not_call ? content_tag(:strike, h(@contact.fax)) : h(@contact.fax)}</b><br />
   %div
