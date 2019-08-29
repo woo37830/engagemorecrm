@@ -112,7 +112,17 @@ Specific features that are not 'Fat Free' in nature, can be added by creating Ra
 
 Tests can easily be run by typing 'rake' but please note that they do take a while to run! Alternatively, you can see the test build status over at our [travis page](http://travis-ci.org/fatfreecrm/fat_free_crm)
 
+## Enhancements Status
 
+1.  Branded as EngageMoreCRM.
+2.  Added Templates and Doables (Actions) to scaffolding.
+3.  Copied Contact haml code into Messages.html.haml to begin
+  to model the send text feature so that it updates the contacts comments
+  when a text message is sent.  
+    a.  Presently need to develop a haml page that has the information to
+      select and display the templates and then add a curl? method or ajax
+      to send the text message to TextMagic and upon response finish adding the comment to the contact.
+      
 ## Main contributors
 
 * [Michael Dvorkin (@michaeldv)](https://github.com/michaeldv) - Founding creator
