@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Actions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @doables.each do |doable| %>
+      <tr>
+        <td><%= doable.name %></td>
+        <td><%= doable.description %></td>
+        <td><%= link_to 'Show', doable %></td>
+        <td><%= link_to 'Edit', edit_doable_path(doable) %></td>
+        <td><%= link_to 'Destroy', doable, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Action', new_doable_path %>

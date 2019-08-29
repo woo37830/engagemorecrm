@@ -169,14 +169,34 @@ module ApplicationHelper
   end
 
   #----------------------------------------------------------------------------
-  def link_to_phone(phone, length = nil, &_block)
+  def create_template_selector()
+    templates = Template.all
+    @t_hash = Hash.new
+    templates.each do |t|
+      @t_hash[t.name] = t.message
+    end
+  end
+
+  #----------------------------------------------------------------------------
+  def display_phone(contact, phone)
+    if( contact.do_not_call?)
+      phone
+    else
+      link_to_phone(@contact, phone)
+    end
+  end
+
+  #----------------------------------------------------------------------------
+  def link_to_phone(contact, phone, length = nil, &_block)
     #phone
     if block_given?
       link_to("mailto:ralph@gomer.com", title: "Block given") do
         yield
       end
     else
-      link_to(h(phone), "https://jwooten37830.com/text.php?phone=#{phone}", title: phone)
+      session[:templates] = create_template_selector()
+      link_to(h(phone), message_path(contact_first_name: contact.first_name, phone: phone, id: contact.id, page: 'contacts'), title: phone)
+  #    link_to(h(phone), "https://jwooten37830.com/text.php?phone=#{phone}", title: phone)
     end
   end
   #----------------------------------------------------------------------------

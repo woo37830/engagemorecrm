@@ -6,7 +6,7 @@
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
 class ContactsController < EntitiesController
-  before_action :get_accounts, only: %i[new create edit update]
+  before_action :get_accounts, only: %i[new create edit update message]
 
   # GET /contacts
   #----------------------------------------------------------------------------
@@ -143,6 +143,16 @@ class ContactsController < EntitiesController
     respond_with(@contacts) do |format|
       format.js { render :index }
     end
+  end
+
+  # GET /contacts/1
+  # AJAX /contacts/1
+  #----------------------------------------------------------------------------
+  def message
+    @stage = Setting.unroll(:opportunity_stage)
+    @comment = Comment.new
+    @timeline = timeline(@contact)
+    respond_with(@contact)
   end
 
   private

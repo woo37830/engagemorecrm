@@ -6,6 +6,9 @@
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
 Rails.application.routes.draw do
+  resources :doables
+  resources :actions
+  resources :templates
   resources :lists
 
   root to: 'home#index'
@@ -30,13 +33,13 @@ Rails.application.routes.draw do
   get 'activities' => 'home#index'
   get 'admin'      => 'admin/users#index',       as: :admin
   get 'profile'    => 'users#show',              as: :profile
-
+  get 'message'    => 'contacts#show',           as: :message
+  #get 'text_message' => 'endpoints#text_message_reply', as: :text_message
   get '/home/options',  as: :options
   get '/home/toggle',   as: :toggle
   match '/home/timeline', as: :timeline, via: %i[get put post]
   match '/home/timezone', as: :timezone, via: %i[get put post]
   post '/home/redraw', as: :redraw
-
   resources :comments,       except: %i[new show]
   resources :emails,         only: [:destroy]
 
@@ -81,6 +84,25 @@ Rails.application.routes.draw do
   end
 
   resources :contacts, id: /\d+/ do
+    collection do
+      get :advanced_search
+      post :filter
+      get :options
+      get :field_group
+      match :auto_complete, via: %i[get post]
+      get :redraw
+      get :versions
+    end
+    member do
+      put :attach
+      post :discard
+      post :subscribe
+      post :unsubscribe
+      get :opportunities
+    end
+  end
+
+  resources :doables, id: /\d+/ do
     collection do
       get :advanced_search
       post :filter

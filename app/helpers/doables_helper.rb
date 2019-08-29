@@ -1,0 +1,2 @@
+module DoablesHelper
+end

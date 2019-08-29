@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180107082701) do
+ActiveRecord::Schema.define(version: 20190829160233) do
 
   create_table "account_contacts", force: :cascade do |t|
     t.integer "account_id"
@@ -171,6 +171,13 @@ ActiveRecord::Schema.define(version: 20180107082701) do
     t.text "subscribed_users"
     t.index ["assigned_to"], name: "index_contacts_on_assigned_to"
     t.index ["user_id", "last_name", "deleted_at"], name: "id_last_name_deleted", unique: true
+  end
+
+  create_table "doables", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "emails", force: :cascade do |t|
@@ -378,6 +385,15 @@ ActiveRecord::Schema.define(version: 20180107082701) do
     t.text "subscribed_users"
     t.index ["assigned_to"], name: "index_tasks_on_assigned_to"
     t.index ["user_id", "name", "deleted_at"], name: "index_tasks_on_user_id_and_name_and_deleted_at", unique: true
+  end
+
+  create_table "templates", force: :cascade do |t|
+    t.string "name"
+    t.string "category"
+    t.string "level"
+    t.string "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

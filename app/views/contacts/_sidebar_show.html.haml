@@ -6,10 +6,10 @@
   %div= render "shared/address_show", asset: @contact, type: 'business', title: :address
 
   %div
-    - unless @contact.phone.blank? | @contact.do_not_call?
-      == #{t :phone}: <b>#{link_to_phone(@contact.phone)}</b><br />
-    - unless @contact.mobile.blank? | @contact.do_not_call?
-      == #{t :phone}: <b>#{link_to_phone(@contact.mobile)}</b><br />
+    - unless @contact.phone.blank?
+      == #{t :phone}: #{display_phone(@contact,@contact.phone)}
+    - unless @contact.mobile.blank?
+      == #{t :phone}: #{display_phone(@contact,@contact.mobile)}
     - unless @contact.fax.blank?
       == #{t :fax}: <b>#{@contact.do_not_call ? content_tag(:strike, h(@contact.fax)) : h(@contact.fax)}</b><br />
   %div
@@ -40,6 +40,7 @@
     %tt #{t :campaign}:
 
   - unless @contact.background_info.blank?
+    = my_logger.info("Ready to render n _contact.html.haml")
     .caption #{t :background_info}
     = auto_link(simple_format @contact.background_info)
 

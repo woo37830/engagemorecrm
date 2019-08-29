@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @doable.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @doable.description %>
+</p>
+
+<%= link_to 'Edit', edit_doable_path(@doable) %> |
+<%= link_to 'Back', doables_path %>
