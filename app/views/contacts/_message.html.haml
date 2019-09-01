@@ -1,0 +1,11 @@
+- if (template = template_for_current_view)
+  = render(template, contact: @contact)
+- else
+  -# default view
+
+  = styles_for :task, :opportunity
+
+  #header
+    %h2 Send Text to #{request['phone']}
+
+  = render "comments/text", commentable: @contact

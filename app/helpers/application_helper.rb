@@ -6,6 +6,7 @@
 # See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
 #------------------------------------------------------------------------------
 module ApplicationHelper
+
   def tabs(tabs = nil)
     tabs ||= controller_path.match?(/admin/) ? FatFreeCRM::Tabs.admin : FatFreeCRM::Tabs.main
     if tabs
@@ -199,6 +200,7 @@ module ApplicationHelper
   #    link_to(h(phone), "https://jwooten37830.com/text.php?phone=#{phone}", title: phone)
     end
   end
+
   #----------------------------------------------------------------------------
   def jumpbox(current)
     tabs = %i[campaigns accounts leads contacts opportunities]
