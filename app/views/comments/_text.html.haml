@@ -24,8 +24,7 @@
       = hidden_field_tag "comment[commentable_type]", class_name.classify, id: "#{id_prefix}_comment_commentable_type"
       %div
         %h3 Select a Template
-        %select{{name: "msg"}}
-          %option  One
+        = create_template_selector
         %div
           = f.text_area :comment, id: "#{id_prefix}_comment_comment"
           .buttons

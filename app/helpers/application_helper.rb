@@ -170,7 +170,22 @@ module ApplicationHelper
   end
 
   #----------------------------------------------------------------------------
-  def create_template_selector()
+  def render_haml(haml, locals = {})
+    Haml::Engine.new(haml.strip_heredoc, format: :html5).render(self, locals)
+  end
+
+  #----------------------------------------------------------------------------
+  def create_template_selector
+    get_templates()
+    render_haml <<-HAML
+    %select{{name: "msg"}}
+      - @t_hash.each do |name,message|
+        %option{ :value => message }= name
+    HAML
+  end
+
+  #----------------------------------------------------------------------------
+  def get_templates()
     templates = Template.all
     @t_hash = Hash.new
     templates.each do |t|
