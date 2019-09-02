@@ -13,7 +13,7 @@
   = hidden_field_tag :shown_notes, "#{commentable.comment_ids.join(',')}", id: "#{id_prefix}_shown_notes"
   = hidden_field_tag :shown_emails, "#{commentable.email_ids.join(',')}", id: "#{id_prefix}_shown_emails"
 
-  = link_to avatar_for(current_user, size: :small), user_path(current_user)
+  //= link_to avatar_for(current_user, size: :small), user_path(current_user)
   .tools
     = link_to_function(t(:expand_all), "crm.flip_notes_and_emails('#{t(:expanded)}', '#{t(:more)}', '#{t(:less)}', '#{id_prefix}')") << " | "
     = link_to_function(t(:collapse_all), "crm.flip_notes_and_emails('#{t(:collapsed)}', '#{t(:more)}', '#{t(:less)}', '#{id_prefix}')")
@@ -26,7 +26,7 @@
         %h3 Select a Template
         = create_template_selector
         %div
-          = f.text_area :comment, id: "#{id_prefix}_comment_comment"
+          = f.text_area :comment, id: "#{id_prefix}_comment_comment", name:"text_msg"
           .buttons
           = image_tag("loading.gif", size: :thumb, class: "spinner", style: "display: none;")
           = f.submit t(:add_note), id: "#{id_prefix}_comment_submit"
@@ -37,3 +37,14 @@
 
   - if notification_emails_configured?
     = render partial: "comments/subscription_links", locals: {entity: commentable}
+
+    :javascript
+      $(document).ready( function() {
+
+        $("##{id_prefix}_comment_comment").innerHTML = "Hello, World";
+
+      $('#template_selector').change(function() {
+        var data= $('select').find('option:selected').val();
+        $("##{id_prefix}_comment_comment").val(data);
+        });
+      }  );

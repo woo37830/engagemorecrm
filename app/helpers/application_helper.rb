@@ -178,7 +178,7 @@ module ApplicationHelper
   def create_template_selector
     get_templates()
     render_haml <<-HAML
-    %select{{name: "msg"}}
+    %select{{name: "msg", id: "template_selector"}}
       - @t_hash.each do |name,message|
         %option{ :value => message }= name
     HAML
