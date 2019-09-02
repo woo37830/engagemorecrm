@@ -40,9 +40,6 @@
 
     :javascript
       $(document).ready( function() {
-
-        $("##{id_prefix}_comment_comment").innerHTML = "Hello, World";
-
       $('#template_selector').change(function() {
         var data= $('select').find('option:selected').val();
         $("##{id_prefix}_comment_comment").val(data);
