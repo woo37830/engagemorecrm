@@ -9,3 +9,6 @@
     %h2 Send Text to #{request['phone']}
 
   = render "comments/text", commentable: @contact
+ 
+  = render partial: "versions/versions", locals: {object: @contact}
+

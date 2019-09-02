@@ -170,6 +170,21 @@ module ApplicationHelper
   end
 
   #----------------------------------------------------------------------------
+  def fill_ins()
+        @fillins = Hash.new
+        @fillins['%%first_name%%'] = 'George'
+        @fillins['%%last_name%%'] = 'Jones'
+  end
+
+  #----------------------------------------------------------------------------
+  def fill_in(template)
+        @fi = fill_ins()
+        @fi.each do 'fkey, fval'
+           template.gsub! fkey fval
+        end
+  end
+
+  #----------------------------------------------------------------------------
   def render_haml(haml, locals = {})
     Haml::Engine.new(haml.strip_heredoc, format: :html5).render(self, locals)
   end
@@ -178,7 +193,7 @@ module ApplicationHelper
   def create_template_selector
     get_templates()
     render_haml <<-HAML
-    %select{{name: "msg", id: "template_selector"}}
+    %select{{name: "text_msg", id: "template_selector"}}
       - @t_hash.each do |name,message|
         %option{ :value => message }= name
     HAML

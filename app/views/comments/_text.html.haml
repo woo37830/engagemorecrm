@@ -22,11 +22,12 @@
     = form_for(@comment, remote: true, html: {id: "#{id_prefix}_new_comment"}) do |f|
       = hidden_field_tag "comment[commentable_id]", commentable.id, id: "#{id_prefix}_comment_commentable_id"
       = hidden_field_tag "comment[commentable_type]", class_name.classify, id: "#{id_prefix}_comment_commentable_type"
+      = hidden_field_tag "phone", "#{request['phone']}", id: "phone"
       %div
         %h3 Select a Template
         = create_template_selector
         %div
-          = f.text_area :comment, id: "#{id_prefix}_comment_comment", name:"text_msg"
+          = f.text_area :comment, id: "#{id_prefix}_comment_comment", name:"comment[comment]"
           .buttons
           = image_tag("loading.gif", size: :thumb, class: "spinner", style: "display: none;")
           = f.submit t(:add_note), id: "#{id_prefix}_comment_submit"
@@ -42,6 +43,12 @@
       $(document).ready( function() {
       $('#template_selector').change(function() {
         var data= $('select').find('option:selected').val();
-        $("##{id_prefix}_comment_comment").val(data);
+        alert(data);
+        var filled = data.replace('%%first_name%%', 'Ralph');
+        $("##{id_prefix}_comment_comment").val(filled);
         });
+      
+       $("form").submit(function() {
+          alert('submit clicked! ' + $("##{id_prefix}_comment_comment").val());
+       });
       }  );
