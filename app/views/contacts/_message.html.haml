@@ -7,6 +7,8 @@
 
   #header
     %h2 Send Text to #{request['phone']}
+    %div{:id => 'phone', :hidden=>'true'}
+      #{request['phone']}
 
   = render "comments/text", commentable: @contact
  

@@ -43,12 +43,20 @@
       $(document).ready( function() {
       $('#template_selector').change(function() {
         var data= $('select').find('option:selected').val();
-        alert(data);
         var filled = data.replace('%%first_name%%', 'Ralph');
         $("##{id_prefix}_comment_comment").val(filled);
         });
-      
-       $("form").submit(function() {
-          alert('submit clicked! ' + $("##{id_prefix}_comment_comment").val());
-       });
+      $('##{id_prefix}_new_comment').submit(function(e) {
+        alert('Caught submit');
+        e.preventDefault();
+        var form = this;
+        var phone = document.getElementById('phone').innerHTML;
+        alert( 'phone: ' + phone);
+        var result = phone.replace(/[^+\d]+/g, "");
+        if( result.length < 11 ) {
+          result = '1'+result;
+        }
+        alert( 'result: ' + result);
+        return false;
+      });
       }  );
