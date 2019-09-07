@@ -11,9 +11,4 @@ module CommentsHelper
     config[:server].present? && config[:user].present? && config[:password].present?
   end
 
-  def send_sms_message(msg, phone_number)
-  	gateway = TextMagic::API.new('my_username', 'my_api_password')
-  	gateway.send msg, phone_number
-  end
-
 end

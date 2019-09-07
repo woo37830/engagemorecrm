@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require 'rubygems'
+require 'textmagic-ruby'
 
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
@@ -45,13 +47,21 @@ class CommentsController < ApplicationController
   # POST /comments.xml                                                     AJAX
   #----------------------------------------------------------------------------
   def create
-    @comment = Comment.new(
+      @comment = Comment.new(
       comment_params.merge(user_id: current_user.id)
     )
     # Make sure commentable object exists and is accessible to the current user.
     model = find_class(@comment.commentable_type)
     id = @comment.commentable_id
     if model.my(current_user).find_by_id(id)
+        phone = request['phone'];
+        phone = phone.gsub!(/\D/, "");
+        unless phone.length == 11
+          phone = "1" + phone;
+        end
+      #@comment.comment = @comment.comment + " "+phone
+      #status = send_sms_message(@comment.comment, phone);
+   
       @comment.save
       respond_with(@comment)
     else
@@ -100,4 +110,17 @@ class CommentsController < ApplicationController
   def extract_commentable_name(params)
     params.keys.detect { |x| x =~ /_id$/ }.try(:sub, /_id$/, '')
   end
+
+  def send_sms_message(msg, phone_number)
+    client = TextMagic::REST::Client.new ENV['MSG_USER'], ENV['MSG_PASSWORD']
+    params = {phones:  phone_number, text: msg}
+
+    # This next line creates and sends the message
+  sent_message = client.messages.create(params)
+  alert "Message sent:  #{send_message.id}"
+  puts "The sent message id: #{sent_message.id}"
+  puts "The sent message URL: #{sent_message.href}"
+  puts ''
+  end
+
 end

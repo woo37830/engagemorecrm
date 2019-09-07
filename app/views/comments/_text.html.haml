@@ -47,16 +47,8 @@
         $("##{id_prefix}_comment_comment").val(filled);
         });
       $('##{id_prefix}_new_comment').submit(function(e) {
-        alert('Caught submit');
         e.preventDefault();
-        var form = this;
-        var phone = document.getElementById('phone').innerHTML;
-        alert( 'phone: ' + phone);
-        var result = phone.replace(/[^+\d]+/g, "");
-        if( result.length < 11 ) {
-          result = '1'+result;
-        }
-        alert( 'result: ' + result);
-        return false;
+        
+        return true;
       });
       }  );
