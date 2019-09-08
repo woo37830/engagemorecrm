@@ -86,7 +86,7 @@ group :heroku do
   gem 'puma'
 end
 
-gem 'textmagic-ruby'
+gem 'textmagic'
 gem 'table_print'
 gem 'sass-rails'
 gem 'coffee-rails'

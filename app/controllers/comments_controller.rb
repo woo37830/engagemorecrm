@@ -1,7 +1,5 @@
 # frozen_string_literal: true
-require 'rubygems'
-require 'textmagic-ruby'
-
+require 'textmagic'
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -59,9 +57,9 @@ class CommentsController < ApplicationController
         unless phone.length == 11
           phone = "1" + phone;
         end
-      #@comment.comment = @comment.comment + " "+phone
-      #status = send_sms_message(@comment.comment, phone);
-   
+  
+      status = send_sms_message(@comment.comment, phone);
+      @comment.comment += status
       @comment.save
       respond_with(@comment)
     else
@@ -112,15 +110,17 @@ class CommentsController < ApplicationController
   end
 
   def send_sms_message(msg, phone_number)
-    client = TextMagic::REST::Client.new ENV['MSG_USER'], ENV['MSG_PASSWORD']
+    user_id = ENV['MSG_USER']
+    user_token = ENV['MSG_PASSWORD']
+    client = TextMagic::API.new user_id, user_token
     params = {phones:  phone_number, text: msg}
 
     # This next line creates and sends the message
-  sent_message = client.messages.create(params)
-  alert "Message sent:  #{send_message.id}"
-  puts "The sent message id: #{sent_message.id}"
-  puts "The sent message URL: #{sent_message.href}"
-  puts ''
+    sent_message = client.send msg, phone_number
+    # puts "The sent message id: #{sent_message.id}"
+    # puts "The sent message URL: #{sent_message.href}"
+    # puts ''
+    return ", "+sent_message
   end
 
 end
