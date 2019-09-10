@@ -15,7 +15,7 @@ source 'https://rubygems.org'
 #else
 #  gem 'pg', '~> 0.21.0'
 #end
-
+gem 'textmagic-ruby'
 # Removes a gem dependency
 def remove(name)
   @dependencies.reject! { |d| d.name == name }
@@ -86,7 +86,6 @@ group :heroku do
   gem 'puma'
 end
 
-gem 'textmagic'
 gem 'table_print'
 gem 'sass-rails'
 gem 'coffee-rails'

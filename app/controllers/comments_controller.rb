@@ -1,5 +1,8 @@
 # frozen_string_literal: true
-require 'textmagic'
+require 'rubygems'
+require 'textmagic-ruby'
+require 'logger'
+#require './auth_helper'
 # Copyright (c) 2008-2013 Michael Dvorkin and contributors.
 #
 # Fat Free CRM is freely distributable under the terms of MIT license.
@@ -48,6 +51,8 @@ class CommentsController < ApplicationController
       @comment = Comment.new(
       comment_params.merge(user_id: current_user.id)
     )
+      log = Logger.new('log.txt')
+      log.debug "Log file created"
     # Make sure commentable object exists and is accessible to the current user.
     model = find_class(@comment.commentable_type)
     id = @comment.commentable_id
@@ -58,8 +63,12 @@ class CommentsController < ApplicationController
           phone = "1" + phone;
         end
   
-      status = send_sms_message(@comment.comment, phone);
-      @comment.comment += status
+        status = send_sms_message(@comment.comment, phone, log);
+        unless status == true
+          @comment.comment = "Failed to send text msg: " + @comment.comment
+        else
+          @comment.comment = "Text - '" + @comment.comment + "' delivered."
+        end
       @comment.save
       respond_with(@comment)
     else
@@ -109,18 +118,31 @@ class CommentsController < ApplicationController
     params.keys.detect { |x| x =~ /_id$/ }.try(:sub, /_id$/, '')
   end
 
-  def send_sms_message(msg, phone_number)
-    user_id = ENV['MSG_USER']
-    user_token = ENV['MSG_PASSWORD']
-    client = TextMagic::API.new user_id, user_token
-    params = {phones:  phone_number, text: msg}
+  def send_sms_message(msg, phone_number, log)
+    username = ENV['MSG_USER']
+    api_key = ENV['MSG_PASSWORD']
+   
+    begin
+      sleep 0.5
+      client = Textmagic::REST::Client.new username, api_key
+      params = {phones:  phone_number, text: msg}
 
     # This next line creates and sends the message
-    sent_message = client.send msg, phone_number
+    outgoing_message = client.messages.create(params)
     # puts "The sent message id: #{sent_message.id}"
     # puts "The sent message URL: #{sent_message.href}"
     # puts ''
-    return ", "+sent_message
+    sleep 0.5
+    messages = client.messages.list(params)
+    sent_message = messages.resources.find { |m| m.id == outgoing_message.id }
+    #log.debug " #{sent_message.status}"
+    return true
+
+    rescue Textmagic::REST::RequestError => e
+      log.error  " #{e.message}"
+      #log.error  " #{e.backtrace}"
+      return false
+    end
   end
 
 end
