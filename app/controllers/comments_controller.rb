@@ -53,6 +53,7 @@ class CommentsController < ApplicationController
     )
       log = Logger.new('log.txt')
       log.debug "Log file created"
+      log.info "fields = #{template_field_names()}"
     # Make sure commentable object exists and is accessible to the current user.
     model = find_class(@comment.commentable_type)
     id = @comment.commentable_id
@@ -62,13 +63,15 @@ class CommentsController < ApplicationController
         unless phone.length == 11
           phone = "1" + phone;
         end
-  
-        status = send_sms_message(@comment.comment, phone, log);
-        unless status == true
-          @comment.comment = "Failed to send text msg: " + @comment.comment
-        else
+    
+        table = fillins()
+        log.info "test = #{table}"
+        #status = send_sms_message(@comment.comment, phone, log);
+        #unless status == true
+        #  @comment.comment = "Failed to send text msg: " + @comment.comment
+        #else
           @comment.comment = "Text - '" + @comment.comment + "' delivered."
-        end
+        #end
       @comment.save
       respond_with(@comment)
     else
@@ -143,6 +146,18 @@ class CommentsController < ApplicationController
       #log.error  " #{e.backtrace}"
       return false
     end
+  end
+
+  def fillins( )
+    fills = Hash.new
+    template_field_names.each do |n|
+      fills[n] = '27'
+    end
+  end
+
+  def template_field_names()
+    field_names = %w(%%first_name%% %%last_name%% %%assigned_to%% %%reports_to%%
+    %%department%% %%born_on%%)
   end
 
 end

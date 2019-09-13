@@ -1,0 +1,9 @@
+20190912 - Work to see how to put this up on heroku
+    It appears that I need to change db to mysql or postgres, for productin
+    and then make it so I'm pushing the production version to heroku
+See if I can get the integration with ThriveCart to work
+Work on the gathering of 'fillins' and then apply them to the templates
+Work out applying what we do now with the single text message and apply
+    that to doing groups using templates.
+Figure out how to get the TextMagic replies to be posted to the app.    
+    
